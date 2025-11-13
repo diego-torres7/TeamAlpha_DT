@@ -10,12 +10,13 @@ import java.util.Scanner;
 public class Topic
 {
     private String topicName;
-    private ArrayList<Question> questions;
+    //private ArrayList<Question> questions;
     private final static String topicDirectoryPath = "data/topics/";
 
-    public void loadTopic(String topicName )
+    public static ArrayList<Question> loadTopic(String topicName )
     {
         String topicPath = getTopicPath( topicName );
+        ArrayList<Question> questions = new ArrayList<Question>();
         Scanner input = null ;
 
         if( topicPath != null )
@@ -27,8 +28,6 @@ public class Topic
             System.exit(0);
         }
 
-        questions = new ArrayList<Question>();
-
         while ( input.hasNext() )
         {
             String line = input.nextLine();
@@ -39,10 +38,10 @@ public class Topic
                 questions.add( question );
             }
         }
-        // return questions
+        return questions;
     }
 
-    private String getTopicPath( String topicName )
+    private static String getTopicPath( String topicName )
     {
         if( findTopicPath( topicName ) )
         {
@@ -55,7 +54,7 @@ public class Topic
         }
     }
 
-    private boolean findTopicPath( String topicName )
+    private static boolean findTopicPath( String topicName )
     {
         String topicPathString = topicDirectoryPath + topicName + ".txt";
         Path topicPath = Paths.get( topicPathString );
@@ -63,7 +62,7 @@ public class Topic
         return Files.exists( topicPath );
     }
 
-    private Question convertLineToQuestion( String line )
+    private static Question convertLineToQuestion( String line )
     {
         String[] data = line.split(",");
         if( data.length != 2 )

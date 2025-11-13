@@ -19,7 +19,7 @@ public class Player
         this.totalAttempts = totalAttempts;
     }
 
-    public ArrayList<Player> loadPlayerData() throws FileNotFoundException
+    public static ArrayList<Player> loadPlayerData() throws FileNotFoundException
     {
             File data = new File(playerDataFilePath);
             Scanner input = new Scanner(data);
@@ -50,7 +50,7 @@ public class Player
         return null;
     }
 
-    private Player convertLineToPlayer(String line)
+    private static Player convertLineToPlayer(String line)
     {
         String[] data = line.split(",");
         if( data.length != 3 )
@@ -63,7 +63,7 @@ public class Player
                             Integer.parseInt( data[2] ) );
     }
 
-    public void savePlayerData(ArrayList<Player> players) throws IOException
+    public static void savePlayerData(ArrayList<Player> players) throws IOException
     {
         FileWriter fw = new FileWriter( playerDataFilePath );
         BufferedWriter bw = new BufferedWriter( fw );
@@ -81,7 +81,7 @@ public class Player
     {
         return (double) totalAttempts / numTimesPlayed;
     }
-    private String convertPlayerToLine(Player player, String separator)
+    private static String convertPlayerToLine(Player player, String separator)
     {
         return player.getUsername() + separator +
                 player.getNumTimesPlayed() + separator +
